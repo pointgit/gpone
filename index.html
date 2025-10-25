@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Artikel SEO - PoinTru</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group .help-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-weight: 400;
+            font-size: 13px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-clear {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #c82333;
+        }
+
+        .output-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .output-section.show {
+            display: block;
+        }
+
+        .output-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .output-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                min-width: 100%;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Generator Prompt Artikel SEO</h1>
+            <p>Tool otomatis untuk membuat prompt artikel blog dan berita SEO-friendly</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="blog">📝 GP Blog (Artikel SEO)</button>
+            <button class="tab" data-tab="news">📰 GP News (Berita 5W+1H)</button>
+        </div>
+
+        <div class="content">
+            <!-- Tab Blog -->
+            <div class="tab-content active" id="blog">
+                <div class="info-box">
+                    <strong>GP Blog</strong> - Gunakan untuk membuat artikel SEO dengan struktur lengkap, tone akademik-humanized, dan optimasi mesin pencari.
+                </div>
+
+                <div class="form-group">
+                    <label>Judul Artikel / Topik Utama *</label>
+                    <input type="text" id="blog-title" placeholder="Contoh: Cara Meningkatkan Traffic Website dengan SEO">
+                    <div class="help-text">Masukkan judul atau topik artikel yang ingin Anda buat</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Keyword Utama (Opsional)</label>
+                    <input type="text" id="blog-keyword" placeholder="Contoh: SEO, traffic website, optimasi">
+                    <div class="help-text">Keyword yang ingin ditargetkan untuk SEO</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Draft Artikel / Context (Opsional)</label>
+                    <textarea id="blog-draft" placeholder="Paste draft artikel yang ingin diparafrase atau berikan konteks tambahan untuk artikel..."></textarea>
+                    <div class="help-text">Jika ada draft yang perlu diparafrase, masukkan di sini</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Target Panjang Artikel</label>
+                    <select id="blog-length">
+                        <option value="500">Pendek (500 kata)</option>
+                        <option value="800" selected>Medium (800 kata)</option>
+                        <option value="1200">Panjang (1200 kata)</option>
+                        <option value="1500">Sangat Panjang (1500+ kata)</option>
+                    </select>
+                    <div class="help-text">Pilih target panjang artikel sesuai kebutuhan SEO</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Elemen Tambahan yang Diinginkan</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-table" value="table">
+                            <label for="blog-table">Tabel Perbandingan</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-list" value="list">
+                            <label for="blog-list">List/Bullet Points</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-button" value="button">
+                            <label for="blog-button">Tombol CTA (Download/WhatsApp/Demo)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-notif" value="notif">
+                            <label for="blog-notif">Kotak Notifikasi (Info/Warning/Error)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-image" value="image">
+                            <label for="blog-image">Grid Gambar 3 Kolom</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-faq" value="faq">
+                            <label for="blog-faq">Accordion FAQ</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-slider" value="slider">
+                            <label for="blog-slider">Slider/Carousel Gambar</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-code" value="code">
+                            <label for="blog-code">Syntax Highlighter (Code)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog-youtube" value="youtube">
+                            <label for="blog-youtube">Lazy Load YouTube Video</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generateBlogPrompt()">✨ Generate Prompt</button>
+                    <button class="btn btn-secondary" onclick="copyPrompt('blog')">📋 Copy Prompt</button>
+                    <button class="btn btn-clear" onclick="clearForm('blog')">🗑️ Clear</button>
+                </div>
+
+                <div class="output-section" id="blog-output">
+                    <h3>📄 Prompt yang Dihasilkan:</h3>
+                    <div class="output-box" id="blog-result"></div>
+                </div>
+            </div>
+
+            <!-- Tab News -->
+            <div class="tab-content" id="news">
+                <div class="info-box">
+                    <strong>GP News</strong> - Gunakan untuk membuat berita faktual dengan struktur 5W+1H (What, Who, When, Where, Why, How).
+                </div>
+
+                <div class="form-group">
+                    <label>Judul Berita / Topik *</label>
+                    <input type="text" id="news-title" placeholder="Contoh: Peluncuran Produk Baru XYZ di Jakarta">
+                    <div class="help-text">Masukkan judul atau topik berita yang ingin ditulis</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Keyword Utama (Opsional)</label>
+                    <input type="text" id="news-keyword" placeholder="Contoh: produk baru, teknologi, Jakarta">
+                    <div class="help-text">Keyword yang ingin ditargetkan</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Informasi Dasar Berita (5W+1H)</label>
+                    <textarea id="news-context" placeholder="Berikan informasi dasar:&#10;- What (Apa yang terjadi)&#10;- Who (Siapa yang terlibat)&#10;- When (Kapan terjadi)&#10;- Where (Di mana terjadi)&#10;- Why (Mengapa terjadi)&#10;- How (Bagaimana prosesnya)"></textarea>
+                    <div class="help-text">Berikan konteks berita sedetail mungkin</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Gaya Penulisan Berita</label>
+                    <select id="news-style">
+                        <option value="formal">Formal (Media Massa)</option>
+                        <option value="semiformal" selected>Semi-Formal (Online Media)</option>
+                        <option value="casual">Casual (Blog Berita)</option>
+                    </select>
+                    <div class="help-text">Pilih tone penulisan sesuai platform publikasi</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Target Panjang Berita</label>
+                    <select id="news-length">
+                        <option value="300">Singkat (300 kata)</option>
+                        <option value="500" selected>Medium (500 kata)</option>
+                        <option value="800">Detail (800 kata)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Elemen Tambahan yang Diinginkan</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="news-quote" value="quote">
+                            <label for="news-quote">Quote Narasumber</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="news-data" value="data">
+                            <label for="news-data">Data Statistik</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="news-timeline" value="timeline">
+                            <label for="news-timeline">Timeline Kejadian</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="news-image" value="image">
+                            <label for="news-image">Placeholder Gambar</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generateNewsPrompt()">✨ Generate Prompt</button>
+                    <button class="btn btn-secondary" onclick="copyPrompt('news')">📋 Copy Prompt</button>
+                    <button class="btn btn-clear" onclick="clearForm('news')">🗑️ Clear</button>
+                </div>
+
+                <div class="output-section" id="news-output">
+                    <h3>📄 Prompt yang Dihasilkan:</h3>
+                    <div class="output-box" id="news-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        ✅ Prompt berhasil disalin ke clipboard!
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Generate Blog Prompt
+        function generateBlogPrompt() {
+            const title = document.getElementById('blog-title').value;
+            const keyword = document.getElementById('blog-keyword').value;
+            const draft = document.getElementById('blog-draft').value;
+            const length = document.getElementById('blog-length').value;
+            
+            if (!title) {
+                alert('Mohon masukkan judul artikel terlebih dahulu!');
+                return;
+            }
+
+            const elements = [];
+            const elementsCode = {};
+            
+            if (document.getElementById('blog-table').checked) {
+                elements.push('tabel perbandingan');
+                elementsCode['table'] = `<div class="tg-wrap"><table border="1" class="tg"><thead><tr><th>Kolom 1</th><th>Kolom 2</th></tr></thead><tbody><tr><td>Data 1</td><td>Data 2</td></tr></tbody></table></div>`;
+            }
+            if (document.getElementById('blog-list').checked) {
+                elements.push('list/bullet points');
+                elementsCode['list'] = `<ul>\n  <li>Poin pertama</li>\n  <li>Poin kedua</li>\n  <li>Poin ketiga</li>\n</ul>`;
+            }
+            if (document.getElementById('blog-button').checked) {
+                elements.push('tombol CTA');
+                elementsCode['button'] = `<!-- Tombol Download -->\n<a class="btn-default btn-primary" href="#"><button>Download</button></a>\n\n<!-- Tombol WhatsApp -->\n<a class="btn-whatsapp btn-primary" href="#"><button>WhatsApp</button></a>\n\n<!-- Tombol Demo -->\n<a class="btn-new-tab btn-primary" href="#"><button>Demo</button></a>`;
+            }
+            if (document.getElementById('blog-notif').checked) {
+                elements.push('kotak notifikasi');
+                elementsCode['notif'] = `<!-- Info -->\n<div class='notification-box info'>Informasi penting di sini</div>\n\n<!-- Warning -->\n<div class='notification-box warning'>Peringatan untuk pembaca</div>\n\n<!-- Error -->\n<div class='notification-box error'>Pesan error atau bahaya</div>`;
+            }
+            if (document.getElementById('blog-image').checked) {
+                elements.push('grid gambar 3 kolom');
+                elementsCode['image'] = `<div class='grid-images three-col'>\n  <img src='https://tse1.mm.bing.net/th?q=keyword-gambar-1' alt='Deskripsi gambar 1'/>\n  <img src='https://tse1.mm.bing.net/th?q=keyword-gambar-2' alt='Deskripsi gambar 2'/>\n  <img src='https://tse1.mm.bing.net/th?q=keyword-gambar-3' alt='Deskripsi gambar 3'/>\n</div>`;
+            }
+            if (document.getElementById('blog-faq').checked) {
+                elements.push('accordion FAQ');
+                elementsCode['faq'] = `<div class="accordion-container">\n  <div class="accordion-toggle">Pertanyaan 1?</div>\n  <div class="accordion-content"><div>Jawaban untuk pertanyaan 1</div></div>\n  \n  <div class="accordion-toggle">Pertanyaan 2?</div>\n  <div class="accordion-content"><div>Jawaban untuk pertanyaan 2</div></div>\n</div>`;
+            }
+            if (document.getElementById('blog-slider').checked) {
+                elements.push('slider/carousel');
+                elementsCode['slider'] = `<div class='slider-container'>\n  <div class='slider-content'>\n    <img src='https://tse1.mm.bing.net/th?q=slide-1' alt='Slide 1'/>\n    <img src='https://tse1.mm.bing.net/th?q=slide-2' alt='Slide 2'/>\n    <img src='https://tse1.mm.bing.net/th?q=slide-3' alt='Slide 3'/>\n  </div>\n</div>`;
+            }
+            if (document.getElementById('blog-code').checked) {
+                elements.push('syntax highlighter');
+                elementsCode['code'] = `<pre><code class='lang-html'>&lt;h1&gt;Contoh Kode HTML&lt;/h1&gt;\n&lt;p&gt;Paragraf contoh&lt;/p&gt;</code></pre>\n\n<!-- Untuk bahasa lain gunakan: lang-css, lang-js, lang-python, dll -->`;
+            }
+            if (document.getElementById('blog-youtube').checked) {
+                elements.push('lazy load YouTube');
+                elementsCode['youtube'] = `<div class="lazy-youtube" data-video-id="VIDEO_ID_YOUTUBE">\n  <div class="lazy-youtube-play"></div>\n</div>\n\n<!-- Ganti VIDEO_ID_YOUTUBE dengan ID video dari URL YouTube -->`;
+            }
+
+            let prompt = `# INSTRUKSI PEMBUATAN ARTIKEL SEO
+
+## ROLE & CONTEXT
+Kamu adalah penulis artikel SEO profesional yang menulis seperti manusia. Tugasmu adalah membuat artikel blog yang SEO-friendly, natural, dan mudah dipahami audiens Indonesia.
+
+## TOPIK ARTIKEL
+Judul/Topik: ${title}`;
+
+            if (keyword) {
+                prompt += `\nKeyword Target: ${keyword}`;
+            }
+
+            prompt += `\n\n## SPESIFIKASI ARTIKEL
+- Panjang target: ${length} kata
+- Bahasa: 90-95% Bahasa Indonesia, 5-10% Bahasa Inggris umum
+- Tone: Akademik tapi humanized, straight-to-the-point
+- Struktur: Gunakan HTML tanpa tag dokumen utama (tanpa <!DOCTYPE>, <html>, <head>, <body>)`;
+
+            if (draft) {
+                prompt += `\n\n## DRAFT/CONTEXT YANG PERLU DIPARAFRASE
+${draft}
+
+PENTING: Parafrase draft di atas dengan gaya natural, hindari plagiarisme, pertahankan sitasi jika ada.`;
+            }
+
+            if (elements.length > 0) {
+                prompt += `\n\n## ELEMEN TAMBAHAN YANG HARUS DISERTAKAN
+${elements.map(e => `- ${e.charAt(0).toUpperCase() + e.slice(1)}`).join('\n')}
+
+## KODE HTML KOMPONEN (Gunakan format ini dengan TEPAT):
+
+`;
+                
+                Object.keys(elementsCode).forEach(key => {
+                    const componentName = key.toUpperCase();
+                    prompt += `═══════════════════════════════════════\n`;
+                    prompt += `KOMPONEN: ${componentName}\n`;
+                    prompt += `═══════════════════════════════════════\n`;
+                    prompt += `${elementsCode[key]}\n\n`;
+                });
+
+                prompt += `═══════════════════════════════════════\n`;
+                prompt += `⚠️ PENTING: \n`;
+                prompt += `- Gunakan kode HTML di atas PERSIS seperti yang diberikan\n`;
+                prompt += `- JANGAN ubah class name atau struktur HTML-nya\n`;
+                prompt += `- Sesuaikan hanya konten/text di dalamnya\n`;
+                prompt += `- Ganti URL gambar dan ID video sesuai kebutuhan\n`;
+                prompt += `═══════════════════════════════════════`;
+            }
+
+            prompt += `\n\n## ATURAN PENULISAN WAJIB
+✅ WAJIB:
+- Gunakan kalimat pendek dan tegas
+- Gunakan kalimat aktif, hindari pasif
+- Fokus pada wawasan praktis
+- Sertakan data atau contoh nyata
+- Gunakan kata "Anda" atau "Kamu"
+- Paragraf pembuka dimulai dengan: <p><a href="https://www.pointru.com">PoinTru.com</a> - [isi paragraf...]</p>
+- Minimal 2 subjudul (<h3>) setiap 300 kata
+- Semua paragraf menggunakan tag <p>
+
+❌ HINDARI:
+- Tanda pisah panjang (–), gunakan koma atau titik
+- Kata pengisi: bisa, mungkin, hanya, yang, sangat, sebenarnya, tentu
+- Kata AI: selami, menyelidiki, menavigasi, realm, komprehensif, krusial
+- Frasa klise: "Di era digital ini", "Panduan lengkap"
+- Markdown, tanda bintang, tanda pagar
+- Kalimat pembuka umum: "kesimpulannya", "pada akhirnya"
+
+## FORMAT OUTPUT YANG DIHARAPKAN
+1. Judul Artikel (42-46 karakter)
+2. Meta Deskripsi (130-150 karakter)
+3. Konten HTML Lengkap
+4. Gambar Header dengan format:
+   <img src="https://tse1.mm.bing.net/th?q=[keyword]" alt="[deskripsi]" title="[judul]" width="100%">
+5. Label (maksimal 5)
+6. Keyword Utama
+7. Permalink SEO-friendly (maksimal 39 karakter)
+
+## PENUTUP ARTIKEL
+Akhiri dengan:
+<h3>Akhir Kata</h3>
+<p>Demikian kiranya artikel sudah saya tulis diatas, sebagai gambaran untuk lebih mudah diingat Anda bisa tahu tentang [rangkum artikel]. Semoga tulisan yang saya beri judul [judul artikel] ini bermanfaat dan sampai jumpa di artikel selanjutnya. Terimakasih sudah membaca sampai disini dan untuk meninggalkan jejak silahkan berkomentar.</p>
+<p>Untuk menemukan artikel lainnya silahkan bisa mencarinya di halaman <a href="https://www.pointru.com/p/sitemap.html">Sitemap</a>.</p>
+
+Mulai buat artikelnya sekarang!`;
+
+            document.getElementById('blog-result').textContent = prompt;
+            document.getElementById('blog-output').classList.add('show');
+        }
+
+        // Generate News Prompt
+        function generateNewsPrompt() {
+            const title = document.getElementById('news-title').value;
+            const keyword = document.getElementById('news-keyword').value;
+            const context = document.getElementById('news-context').value;
+            const style = document.getElementById('news-style').value;
+            const length = document.getElementById('news-length').value;
+
+            if (!title) {
+                alert('Mohon masukkan judul berita terlebih dahulu!');
+                return;
+            }
+
+            const elements = [];
+            if (document.getElementById('news-quote').checked) elements.push('quote narasumber');
+            if (document.getElementById('news-data').checked) elements.push('data statistik');
+            if (document.getElementById('news-timeline').checked) elements.push('timeline kejadian');
+            if (document.getElementById('news-image').checked) elements.push('placeholder gambar');
+
+            const styleDesc = {
+                'formal': 'Formal dan objektif seperti media massa mainstream',
+                'semiformal': 'Semi-formal dengan sentuhan personal untuk media online',
+                'casual': 'Casual dan engaging untuk blog berita'
+            };
+
+            let prompt = `# INSTRUKSI PEMBUATAN BERITA (5W+1H)
+
+## ROLE & CONTEXT
+Kamu adalah jurnalis profesional yang menulis berita faktual dengan struktur 5W+1H (What, Who, When, Where, Why, How).
+
+## TOPIK BERITA
+Judul: ${title}`;
+
+            if (keyword) {
+                prompt += `\nKeyword: ${keyword}`;
+            }
+
+            if (context) {
+                prompt += `\n\n## INFORMASI DASAR (5W+1H)
+${context}`;
+            }
+
+            prompt += `\n\n## SPESIFIKASI BERITA
+- Panjang target: ${length} kata
+- Gaya penulisan: ${styleDesc[style]}
+- Bahasa: 95% Bahasa Indonesia, 5% Bahasa Inggris umum
+- Struktur: Gunakan HTML tanpa tag dokumen utama`;
+
+            if (elements.length > 0) {
+                prompt += `\n\n## ELEMEN TAMBAHAN
+${elements.map(e => `- ${e.charAt(0).toUpperCase() + e.slice(1)}`).join('\n')}`;
+            }
+
+            prompt += `\n\n## STRUKTUR BERITA WAJIB (Piramida Terbalik)
+1. Lead Paragraph (Paragraf Pembuka):
+   - <p><a href="https://www.pointru.com">PoinTru.com</a> - [Jawab What, Who, When, Where secara ringkas]</p>
+   - Paragraf pembuka harus menjawab pertanyaan dasar berita
+
+2. Body (Isi Berita):
+   - Jelaskan Why (Mengapa terjadi)
+   - Jelaskan How (Bagaimana prosesnya)
+   - Tambahkan detail pendukung
+   - Sertakan quote narasumber jika tersedia
+   - Berikan konteks atau latar belakang
+
+3. Closing (Penutup):
+   - Informasi tambahan atau rencana ke depan
+   - Link ke berita terkait jika relevan
+
+## ATURAN PENULISAN BERITA
+✅ WAJIB:
+- Objektif dan faktual
+- Kalimat pendek dan jelas (maksimal 20 kata per kalimat)
+- Hindari opini pribadi
+- Sertakan sumber informasi yang kredibel
+- Gunakan <h3> untuk subjudul
+- Semua paragraf menggunakan <p>
+
+❌ HINDARI:
+- Clickbait atau sensasional berlebihan
+- Kata-kata subjektif atau emotif berlebihan
+- Tanda pisah panjang
+- Kata pengisi tidak perlu
+- Markdown atau tanda bintang
+
+## FORMAT OUTPUT
+1. Judul Berita (40-45 karakter, faktual)
+2. Meta Deskripsi (130-150 karakter)
+3. Konten HTML Berita
+4. Gambar dengan alt text informatif
+5. Label berita (maksimal 5)
+6. Permalink SEO (maksimal 39 karakter)
+
+## PENUTUP BERITA
+<h3>Akhir Kata</h3>
+<p>Demikian informasi terkait [topik berita]. Artikel berjudul ${title} ini diharapkan memberikan gambaran lengkap mengenai kejadian tersebut. Untuk informasi berita terkini lainnya, kunjungi <a href="https://www.pointru.com/p/sitemap.html">Sitemap</a>.</p>
+
+Mulai tulis beritanya sekarang dengan struktur 5W+1H yang jelas!`;
+
+            document.getElementById('news-result').textContent = prompt;
+            document.getElementById('news-output').classList.add('show');
+        }
+
+        // Copy to Clipboard
+        function copyPrompt(type) {
+            const resultBox = document.getElementById(`${type}-result`);
+            const text = resultBox.textContent;
+
+            if (!text || text.trim() === '') {
+                alert('Belum ada prompt yang di-generate! Klik tombol Generate terlebih dahulu.');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification();
+            }).catch(err => {
+                alert('Gagal menyalin prompt. Coba lagi!');
+            });
+        }
+
+        // Show Notification
+        function showNotification() {
+            const notif = document.getElementById('notification');
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 3000);
+        }
+
+        // Clear Form
+        function clearForm(type) {
+            if (type === 'blog') {
+                document.getElementById('blog-title').value = '';
+                document.getElementById('blog-keyword').value = '';
+                document.getElementById('blog-draft').value = '';
+                document.getElementById('blog-length').value = '800';
+                document.querySelectorAll('#blog input[type="checkbox"]').forEach(cb => cb.checked = false);
+                document.getElementById('blog-result').textContent = '';
+                document.getElementById('blog-output').classList.remove('show');
+            } else {
+                document.getElementById('news-title').value = '';
+                document.getElementById('news-keyword').value = '';
+                document.getElementById('news-context').value = '';
+                document.getElementById('news-style').value = 'semiformal';
+                document.getElementById('news-length').value = '500';
+                document.querySelectorAll('#news input[type="checkbox"]').forEach(cb => cb.checked = false);
+                document.getElementById('news-result').textContent = '';
+                document.getElementById('news-output').classList.remove('show');
+            }
+        }
+    </script>
+</body>
+</html>
